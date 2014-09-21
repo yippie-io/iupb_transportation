@@ -17,7 +17,7 @@ gem 'pg', group: :production
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use puma as the app server
 gem 'puma'
