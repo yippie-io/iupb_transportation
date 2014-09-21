@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  resources :stations, only: [:index]
+
+  resources :stops, only: [:index] do
+    collection do
+      get 'filter'
+    end
+  end
+
+  get 'busplan.php' => 'stops#legacy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

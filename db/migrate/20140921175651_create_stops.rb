@@ -7,6 +7,7 @@ class CreateStops < ActiveRecord::Migration
       t.string :line_identifier
       t.string :line_type
       t.string :key
+      t.references :station, index: true
 
       t.timestamps
     end
