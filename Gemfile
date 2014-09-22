@@ -21,6 +21,7 @@ gem 'jbuilder'
 
 # Use puma as the app server
 gem 'puma'
+gem "httparty"
 gem 'dalli', :group => 'production'
 gem 'memcachier', :group => 'production'
 gem 'rails_12factor', :group => 'production'
