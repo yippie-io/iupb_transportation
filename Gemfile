@@ -6,7 +6,7 @@ gem 'rails-api'
 
 gem 'rack-jsonp-middleware', require: 'rack/jsonp'
 
-gem 'spring', :group => :development
+gem 'spring', group: :development
 
 gem 'sqlite3', group: :development
 gem 'pg', group: :production
@@ -33,3 +33,9 @@ gem 'newrelic_rpm', :group => 'production'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem "rake", group: :test
+
+if RUBY_PLATFORM =~ /darwin/
+  ruby "2.1.0"
+end
