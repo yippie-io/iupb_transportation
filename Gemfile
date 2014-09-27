@@ -19,8 +19,9 @@ gem 'pg', group: :production
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
-# Use puma as the app server
-gem 'puma'
+# Use unicorn as the app server
+gem 'unicorn'
+
 gem "httparty"
 gem 'dalli', :group => 'production'
 gem 'memcachier', :group => 'production'
