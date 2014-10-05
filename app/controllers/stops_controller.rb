@@ -27,7 +27,11 @@ class StopsController < ApplicationController
       }
     end
     cache_results_accordingly
-    render json: json_result
+    if params[:callback]
+       render json: json_result, callback: params[:callback]
+    else
+       render json: json_result  
+    end
   end
   
   protected
