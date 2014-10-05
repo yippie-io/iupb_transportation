@@ -37,7 +37,7 @@ class StopsController < ApplicationController
   protected
   def cache_results_accordingly(stale_at = nil)
     if stale_at || !@stops.empty?
-      seconds_til_first_bus = Time.now - (stale_at || @stops.first.scheduled_time)
+      seconds_til_first_bus = (stale_at || @stops.first.scheduled_time) - Time.now
       expires_in seconds_til_first_bus.seconds, public: true
     end
   end
