@@ -19,7 +19,7 @@ module JsonImported
     
     def make_stop_from_json_result(json_result, station)
       stop = Stop.new
-      stop.scheduled_time = DateTime.strptime("#{json_result["sched_date"]} #{json_result["sched_time"]}", "%d.%m.%Y %H:%M")
+      stop.scheduled_time = DateTime.strptime("#{json_result["sched_date"]} #{json_result["sched_time"]} #{Time.now.strftime("%z")}", "%d.%m.%Y %H:%M %z")
       stop.line_direction = json_result["lineref"]["direction"]
       stop.line_name = json_result["lineref"]["name"]
       stop.line_identifier = json_result["lineref"]["identifier"]

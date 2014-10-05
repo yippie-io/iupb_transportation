@@ -1,12 +1,12 @@
 class StopsController < ApplicationController
   def index
-    @stops = Stop.upcomming
+    @stops = Stop.load_or_get_upcomming!
     @stops = @stops.limit(params[:limit].to_i) if is_int?(params[:limit])
     cache_results_accordingly
   end
 
   def filter
-    @stops = Stop.upcomming
+    @stops = Stop.load_or_get_upcomming!
     unless params[:station].blank?
       @stops = @stops.for_station(params[:station])
     end
@@ -17,7 +17,7 @@ class StopsController < ApplicationController
   end
   
   def legacy
-    @stops = Stop.upcomming.limit(15)
+    @stops = Stop.load_or_get_upcomming!.first(15)
     json_result = @stops.map do |stop|
       {
         date: stop.scheduled_time.strftime("%Y-%m-%d %H:%M:%S"),

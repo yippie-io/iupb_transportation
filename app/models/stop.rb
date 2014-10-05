@@ -9,7 +9,9 @@ class Stop < ActiveRecord::Base
   
   belongs_to :station
   
-  include JsonImported
+  validates :scheduled_time, :uniqueness => {:scope => [:line_name, :line_direction, :station_id]}
+  
+  include JsonImported # needed for #load_or_get_upcomming!
   
   # SCOPES AND FINDERS:  
   default_scope { order(scheduled_time: :asc) }
@@ -18,6 +20,16 @@ class Stop < ActiveRecord::Base
   
   def self.for_station(station_filter_name)
     where(station_id: Station.find_by_name(station_filter_name).id)
+  end
+  
+  def self.load_or_get_upcomming!
+    stops = self.upcomming
+    if (stops.empty? || (Time.now - Stop.maximum(:created_at)) > 5.minutes) && (stops.empty? || stops.group_by(&:station).values.map(&:count).max < 5)
+      Station.all.each do |station|
+        self.import!(station) # import! made available by concern JsonImported
+      end
+    end
+    self.upcomming
   end
   
   # INSTANCE METHODS
