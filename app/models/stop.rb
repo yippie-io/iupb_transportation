@@ -24,7 +24,7 @@ class Stop < ActiveRecord::Base
   
   def self.load_or_get_upcomming!
     stops = self.upcomming
-    if (stops.empty? || (Time.now - Stop.maximum(:created_at)) > 5.minutes) && (stops.empty? || stops.group_by(&:station).values.map(&:count).max < 5)
+    if (stops.empty? || (Time.now - Stop.maximum(:created_at)) > 5.minutes) && (stops.empty? || stops.group_by(&:station).values.map(&:count).min < 5)
       Station.all.each do |station|
         self.import!(station) # import! made available by concern JsonImported
       end
